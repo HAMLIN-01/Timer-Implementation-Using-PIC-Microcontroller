@@ -1,0 +1,465 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.81 build 7503 
+                                                                                               Tue Oct 08 13:00:06 2024
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 7503
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 7503"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F877A
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           	FNROOT	_main
+    43                           	FNCALL	intlevel1,_timer_isr
+    44                           	global	intlevel1
+    45                           	FNROOT	intlevel1
+    46                           	global	_value
+    47                           	global	_PORTD
+    48                           psect	maintext,global,class=CODE,delta=2
+    49                           global __pmaintext
+    50  0015                     __pmaintext:
+    51  0008                     _PORTD	set	8
+    52                           	global	_TMR0
+    53  0001                     _TMR0	set	1
+    54                           	global	_GIE
+    55  005F                     _GIE	set	95
+    56                           	global	_PEIE
+    57  005E                     _PEIE	set	94
+    58                           	global	_TMR0IE
+    59  005D                     _TMR0IE	set	93
+    60                           	global	_TMR0IF
+    61  005A                     _TMR0IF	set	90
+    62                           	global	_OPTION_REG
+    63  0081                     _OPTION_REG	set	129
+    64                           	global	_TRISD
+    65  0088                     _TRISD	set	136
+    66                           	file	"pictimer.as"
+    67                           	line	#
+    68                           psect cinit,class=CODE,delta=2
+    69                           global start_initialization
+    70  003D                     start_initialization:
+    71                           
+    72                           psect	bssCOMMON,class=COMMON,space=1
+    73                           global __pbssCOMMON
+    74  0074                     __pbssCOMMON:
+    75  0074                     _value:
+    76  0074                            ds      1
+    77                           
+    78                           ; Clear objects allocated to COMMON
+    79                           psect cinit,class=CODE,delta=2
+    80  003D  01F4               	clrf	((__pbssCOMMON)+0)&07Fh
+    81                           psect cinit,class=CODE,delta=2
+    82                           global end_of_initialization
+    83                           
+    84                           ;End of C runtime variable initialization code
+    85                           
+    86  003E                     end_of_initialization:
+    87  003E  0183               clrf status
+    88  003F  120A  118A  2815   ljmp _main	;jump to C main() function
+    89                           psect	cstackCOMMON,class=COMMON,space=1
+    90                           global __pcstackCOMMON
+    91  0070                     __pcstackCOMMON:
+    92                           	global	?_timer_isr
+    93  0070                     ?_timer_isr:	; 0 bytes @ 0x0
+    94                           	global	??_timer_isr
+    95  0070                     ??_timer_isr:	; 0 bytes @ 0x0
+    96                           	global	?_main
+    97  0070                     ?_main:	; 0 bytes @ 0x0
+    98  0070                     	ds	4
+    99                           	global	??_main
+   100  0074                     ??_main:	; 0 bytes @ 0x4
+   101 ;;Data sizes: Strings 0, constant 0, data 0, bss 1, persistent 0 stack 0
+   102 ;;Auto spaces:   Size  Autos    Used
+   103 ;; COMMON          14      4       5
+   104 ;; BANK0           80      0       0
+   105 ;; BANK1           80      0       0
+   106 ;; BANK3           96      0       0
+   107 ;; BANK2           96      0       0
+   108                           
+   109 ;;
+   110 ;; Pointer list with targets:
+   111                           
+   112                           
+   113                           
+   114 ;;
+   115 ;; Critical Paths under _main in COMMON
+   116 ;;
+   117 ;;   None.
+   118 ;;
+   119 ;; Critical Paths under _timer_isr in COMMON
+   120 ;;
+   121 ;;   None.
+   122 ;;
+   123 ;; Critical Paths under _main in BANK0
+   124 ;;
+   125 ;;   None.
+   126 ;;
+   127 ;; Critical Paths under _timer_isr in BANK0
+   128 ;;
+   129 ;;   None.
+   130 ;;
+   131 ;; Critical Paths under _main in BANK1
+   132 ;;
+   133 ;;   None.
+   134 ;;
+   135 ;; Critical Paths under _timer_isr in BANK1
+   136 ;;
+   137 ;;   None.
+   138 ;;
+   139 ;; Critical Paths under _main in BANK3
+   140 ;;
+   141 ;;   None.
+   142 ;;
+   143 ;; Critical Paths under _timer_isr in BANK3
+   144 ;;
+   145 ;;   None.
+   146 ;;
+   147 ;; Critical Paths under _main in BANK2
+   148 ;;
+   149 ;;   None.
+   150 ;;
+   151 ;; Critical Paths under _timer_isr in BANK2
+   152 ;;
+   153 ;;   None.
+   154                           
+   155 ;;
+   156 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   157 ;;
+   158                           
+   159 ;;
+   160 ;;Call Graph Tables:
+   161 ;;
+   162 ;; ---------------------------------------------------------------------------------
+   163 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   164 ;; ---------------------------------------------------------------------------------
+   165 ;; (0) _main                                                 0     0      0       0
+   166 ;; ---------------------------------------------------------------------------------
+   167 ;; Estimated maximum stack depth 0
+   168 ;; ---------------------------------------------------------------------------------
+   169 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   170 ;; ---------------------------------------------------------------------------------
+   171 ;; (1) _timer_isr                                            4     4      0       0
+   172 ;;                                              0 COMMON     4     4      0
+   173 ;; ---------------------------------------------------------------------------------
+   174 ;; Estimated maximum stack depth 1
+   175 ;; ---------------------------------------------------------------------------------
+   176                           
+   177 ;; Call Graph Graphs:
+   178                           
+   179 ;; _main (ROOT)
+   180 ;;
+   181 ;; _timer_isr (ROOT)
+   182 ;;
+   183                           
+   184 ;; Address spaces:
+   185                           
+   186 ;;Name               Size   Autos  Total    Cost      Usage
+   187 ;;BITCOMMON            E      0       0       0        0.0%
+   188 ;;EEDATA             100      0       0       0        0.0%
+   189 ;;NULL                 0      0       0       0        0.0%
+   190 ;;CODE                 0      0       0       0        0.0%
+   191 ;;COMMON               E      4       5       1       35.7%
+   192 ;;BITSFR0              0      0       0       1        0.0%
+   193 ;;SFR0                 0      0       0       1        0.0%
+   194 ;;BITSFR1              0      0       0       2        0.0%
+   195 ;;SFR1                 0      0       0       2        0.0%
+   196 ;;STACK                0      0       0       2        0.0%
+   197 ;;ABS                  0      0       5       3        0.0%
+   198 ;;BITBANK0            50      0       0       4        0.0%
+   199 ;;BITSFR3              0      0       0       4        0.0%
+   200 ;;SFR3                 0      0       0       4        0.0%
+   201 ;;BANK0               50      0       0       5        0.0%
+   202 ;;BITSFR2              0      0       0       5        0.0%
+   203 ;;SFR2                 0      0       0       5        0.0%
+   204 ;;BITBANK1            50      0       0       6        0.0%
+   205 ;;BANK1               50      0       0       7        0.0%
+   206 ;;BITBANK3            60      0       0       8        0.0%
+   207 ;;BANK3               60      0       0       9        0.0%
+   208 ;;BITBANK2            60      0       0      10        0.0%
+   209 ;;BANK2               60      0       0      11        0.0%
+   210 ;;DATA                 0      0       5      12        0.0%
+   211                           
+   212                           	global	_main
+   213                           psect	maintext
+   214                           
+   215 ;; *************** function _main *****************
+   216 ;; Defined at:
+   217 ;;		line 19 in file "C:\Users\HP\OneDrive\Documents\PIC\TIMER\pictimer.c"
+   218 ;; Parameters:    Size  Location     Type
+   219 ;;		None
+   220 ;; Auto vars:     Size  Location     Type
+   221 ;;		None
+   222 ;; Return value:  Size  Location     Type
+   223 ;;		None               void
+   224 ;; Registers used:
+   225 ;;		wreg, status,2
+   226 ;; Tracked objects:
+   227 ;;		On entry : 17F/0
+   228 ;;		On exit  : 0/0
+   229 ;;		Unchanged: 0/0
+   230 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   231 ;;      Params:         0       0       0       0       0
+   232 ;;      Locals:         0       0       0       0       0
+   233 ;;      Temps:          0       0       0       0       0
+   234 ;;      Totals:         0       0       0       0       0
+   235 ;;Total ram usage:        0 bytes
+   236 ;; Hardware stack levels required when called:    1
+   237 ;; This function calls:
+   238 ;;		Nothing
+   239 ;; This function is called by:
+   240 ;;		Startup code after reset
+   241 ;; This function uses a non-reentrant model
+   242 ;;
+   243                           psect	maintext
+   244                           	file	"C:\Users\HP\OneDrive\Documents\PIC\TIMER\pictimer.c"
+   245                           	line	19
+   246                           	global	__size_of_main
+   247  0014                     	__size_of_main	equ	__end_of_main-_main
+   248                           	
+   249  0015                     _main:	
+   250                           	opt	stack 7
+   251                           ; Regs used in _main: [wreg+status,2]
+   252                           	line	20
+   253                           	
+   254  0015                     l1071:	
+   255                           ;pictimer.c: 20: TRISD=0x00;
+   256  0015  1683               	bsf	status, 5	;RP0=1, select bank1
+   257  0016  1303               	bcf	status, 6	;RP1=0, select bank1
+   258  0017  0188               	clrf	(136)^080h	;volatile
+   259                           	line	22
+   260                           	
+   261  0018                     l1073:	
+   262                           ;pictimer.c: 22: OPTION_REG=(1<<2);
+   263  0018  3004               	movlw	(04h)
+   264  0019  0081               	movwf	(129)^080h	;volatile
+   265                           	line	23
+   266                           	
+   267  001A                     l1075:	
+   268                           ;pictimer.c: 23: TMR0=100;
+   269  001A  3064               	movlw	(064h)
+   270  001B  1283               	bcf	status, 5	;RP0=0, select bank0
+   271  001C  1303               	bcf	status, 6	;RP1=0, select bank0
+   272  001D  0081               	movwf	(1)	;volatile
+   273                           	line	24
+   274                           	
+   275  001E                     l1077:	
+   276                           ;pictimer.c: 24: TMR0IE=1;
+   277  001E  168B               	bsf	(93/8),(93)&7
+   278                           	line	25
+   279                           	
+   280  001F                     l1079:	
+   281                           ;pictimer.c: 25: GIE=1;
+   282  001F  178B               	bsf	(95/8),(95)&7
+   283                           	line	26
+   284                           	
+   285  0020                     l1081:	
+   286                           ;pictimer.c: 26: PEIE=1;
+   287  0020  170B               	bsf	(94/8),(94)&7
+   288  0021  2822               	goto	l1083
+   289                           	line	28
+   290                           ;pictimer.c: 28: while(1)
+   291                           	
+   292  0022                     l691:	
+   293                           	line	30
+   294                           	
+   295  0022                     l1083:	
+   296                           ;pictimer.c: 29: {
+   297                           ;pictimer.c: 30: PORTD = value;
+   298  0022  0874               	movf	(_value),w
+   299  0023  0088               	movwf	(8)	;volatile
+   300  0024  2822               	goto	l1083
+   301                           	line	31
+   302                           	
+   303  0025                     l692:	
+   304                           	line	28
+   305  0025  2822               	goto	l1083
+   306                           	
+   307  0026                     l693:	
+   308                           	line	32
+   309                           	
+   310  0026                     l694:	
+   311                           	global	start
+   312  0026  120A  118A  2812   	ljmp	start
+   313                           	opt stack 0
+   314                           GLOBAL	__end_of_main
+   315  0029                     	__end_of_main:
+   316 ;; =============== function _main ends ============
+   317                           
+   318                           	signat	_main,88
+   319                           	global	_timer_isr
+   320                           psect	text55,local,class=CODE,delta=2
+   321                           global __ptext55
+   322  0029                     __ptext55:
+   323                           
+   324 ;; *************** function _timer_isr *****************
+   325 ;; Defined at:
+   326 ;;		line 8 in file "C:\Users\HP\OneDrive\Documents\PIC\TIMER\pictimer.c"
+   327 ;; Parameters:    Size  Location     Type
+   328 ;;		None
+   329 ;; Auto vars:     Size  Location     Type
+   330 ;;		None
+   331 ;; Return value:  Size  Location     Type
+   332 ;;		None               void
+   333 ;; Registers used:
+   334 ;;		wreg
+   335 ;; Tracked objects:
+   336 ;;		On entry : 0/0
+   337 ;;		On exit  : 0/0
+   338 ;;		Unchanged: 0/0
+   339 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   340 ;;      Params:         0       0       0       0       0
+   341 ;;      Locals:         0       0       0       0       0
+   342 ;;      Temps:          4       0       0       0       0
+   343 ;;      Totals:         4       0       0       0       0
+   344 ;;Total ram usage:        4 bytes
+   345 ;; Hardware stack levels used:    1
+   346 ;; This function calls:
+   347 ;;		Nothing
+   348 ;; This function is called by:
+   349 ;;		Interrupt level 1
+   350 ;; This function uses a non-reentrant model
+   351 ;;
+   352                           psect	text55
+   353                           	file	"C:\Users\HP\OneDrive\Documents\PIC\TIMER\pictimer.c"
+   354                           	line	8
+   355                           	global	__size_of_timer_isr
+   356  0014                     	__size_of_timer_isr	equ	__end_of_timer_isr-_timer_isr
+   357                           	
+   358  0029                     _timer_isr:	
+   359                           	opt	stack 7
+   360                           ; Regs used in _timer_isr: [wreg]
+   361                           psect	intentry,class=CODE,delta=2
+   362                           global __pintentry
+   363  0004                     __pintentry:
+   364                           global interrupt_function
+   365  0004                     interrupt_function:
+   366                           	global saved_w
+   367  007E                     	saved_w	set	btemp+0
+   368  0004  00FE               	movwf	saved_w
+   369  0005  0E03               	swapf	status,w
+   370  0006  00F0               	movwf	(??_timer_isr+0)
+   371  0007  0804               	movf	fsr0,w
+   372  0008  00F1               	movwf	(??_timer_isr+1)
+   373  0009  080A               	movf	pclath,w
+   374  000A  00F2               	movwf	(??_timer_isr+2)
+   375  000B  1283               	bcf	status, 5	;RP0=0, select bank0
+   376  000C  1303               	bcf	status, 6	;RP1=0, select bank0
+   377  000D  087F               	movf	btemp+1,w
+   378  000E  00F3               	movwf	(??_timer_isr+3)
+   379  000F  120A  118A  2829   	ljmp	_timer_isr
+   380                           psect	text55
+   381                           	line	9
+   382                           	
+   383  0029                     i1l1063:	
+   384                           ;pictimer.c: 9: if(TMR0IF==1)
+   385  0029  1D0B               	btfss	(90/8),(90)&7
+   386  002A  282C               	goto	u1_21
+   387  002B  282D               	goto	u1_20
+   388  002C                     u1_21:
+   389  002C  2832               	goto	i1l688
+   390  002D                     u1_20:
+   391                           	line	11
+   392                           	
+   393  002D                     i1l1065:	
+   394                           ;pictimer.c: 10: {
+   395                           ;pictimer.c: 11: value=~value;
+   396  002D  09F4               	comf	(_value),f
+   397                           	line	12
+   398                           	
+   399  002E                     i1l1067:	
+   400                           ;pictimer.c: 12: TMR0=101;
+   401  002E  3065               	movlw	(065h)
+   402  002F  0081               	movwf	(1)	;volatile
+   403                           	line	14
+   404                           	
+   405  0030                     i1l1069:	
+   406                           ;pictimer.c: 14: TMR0IF=0;
+   407  0030  110B               	bcf	(90/8),(90)&7
+   408  0031  2832               	goto	i1l688
+   409                           	line	15
+   410                           	
+   411  0032                     i1l687:	
+   412                           	line	16
+   413                           	
+   414  0032                     i1l688:	
+   415  0032  0873               	movf	(??_timer_isr+3),w
+   416  0033  00FF               	movwf	btemp+1
+   417  0034  0872               	movf	(??_timer_isr+2),w
+   418  0035  008A               	movwf	pclath
+   419  0036  0871               	movf	(??_timer_isr+1),w
+   420  0037  0084               	movwf	fsr0
+   421  0038  0E70               	swapf	(??_timer_isr+0)^0FFFFFF80h,w
+   422  0039  0083               	movwf	status
+   423  003A  0EFE               	swapf	saved_w,f
+   424  003B  0E7E               	swapf	saved_w,w
+   425  003C  0009               	retfie
+   426                           	opt stack 0
+   427                           GLOBAL	__end_of_timer_isr
+   428  003D                     	__end_of_timer_isr:
+   429 ;; =============== function _timer_isr ends ============
+   430                           
+   431                           	signat	_timer_isr,88
+   432                           psect	text56,local,class=CODE,delta=2
+   433                           global __ptext56
+   434  0000                     __ptext56:
+   435                           	global	btemp
+   436  007E                     	btemp set 07Eh
+   437                           
+   438                           	DABS	1,126,2	;btemp
+   439                           	global	wtemp0
+   440  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.81 build 7503 
+Symbol Table                                                                                   Tue Oct 08 13:00:06 2024
+
+                 l691 0022                   l692 0025                   l693 0026                   l694 0026  
+                 _GIE 005F                   fsr0 0004                  l1071 0015                  l1081 0020  
+                l1073 0018                  l1083 0022                  l1075 001A                  l1077 001E  
+                l1079 001F                  _PEIE 005E                  _TMR0 0001                  u1_20 002D  
+                u1_21 002C                  _main 0015                  btemp 007E                  start 0012  
+               ?_main 0070                 i1l687 0032                 i1l688 0032                 _PORTD 0008  
+               _TRISD 0088                 _value 0074                 pclath 000A                 status 0003  
+               wtemp0 007E          __end_of_main 0029                ??_main 0074                i1l1063 0029  
+              i1l1065 002D                i1l1067 002E                i1l1069 0030                _TMR0IE 005D  
+              _TMR0IF 005A                saved_w 007E        __pcstackCOMMON 0070            __pmaintext 0015  
+          __pintentry 0004    __size_of_timer_isr 0014  end_of_initialization 003E     __end_of_timer_isr 003D  
+ start_initialization 003D           __pbssCOMMON 0074     interrupt_function 0004             _timer_isr 0029  
+          ?_timer_isr 0070              __ptext55 0029              __ptext56 0000         __size_of_main 0014  
+            intlevel1 0000           ??_timer_isr 0070            _OPTION_REG 0081  
